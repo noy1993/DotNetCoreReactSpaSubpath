@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<!-- Spa的文件父目录 -->
+		<SpaRoot>ClientApp\</SpaRoot>
+		<SpaBuild>dist\</SpaBuild>
+		
+		<ImplicitUsings>enable</ImplicitUsings>
+		<DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Remove="$(SpaRoot)**" />
+		<None Remove="$(SpaRoot)**" />
+		<None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="wwwroot\" />
+	</ItemGroup>
+	
+	<!-- 设置哪些 spa 项目会被发布 -->
+	<ItemGroup>
+		<SpaItem Include="hello\" />
+		<SpaItem Include="myworld\" />
+	</ItemGroup>
+
+	<!-- 发布前先编译目标 -->
+	<Target Name="PublishBuildVite" BeforeTargets="BeforePublish">
+		<Message Text="$(SpaRoot)%(SpaItem.Identity) build..." Importance="high" />
+		<Exec WorkingDirectory="$(SpaRoot)%(SpaItem.Identity)" Command="yarn" />
+		<Exec WorkingDirectory="$(SpaRoot)%(SpaItem.Identity)" Command="yarn build" />
+	</Target>
+	
+	<!-- 所有Spa 编译完成的文件打包到 wwwroot 文件夹里 -->
+	<Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+		<Message Text="Inside ComputeFilesToPublish" Importance="high" />
+		<ItemGroup>
+			<DistFiles Include="$(SpaRoot)%(SpaItem.Identity)$(SpaBuild)**" />
+			<ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')">
+				<RelativePath>wwwroot\%(DistFiles.Identity)</RelativePath>
+				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+				<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			</ResolvedFileToPublish>
+		</ItemGroup>
+    </Target>
+</Project>

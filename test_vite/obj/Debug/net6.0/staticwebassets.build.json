@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "i9kSRIsestuuQYgLm4DIp+LEjrIoZOzK6pxjvff9SKc=",
+  "Source": "test_vite",
+  "BasePath": "_content/test_vite",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "test_vite\\wwwroot",
+      "Source": "test_vite",
+      "ContentRoot": "E:\\web\\DotNetCoreReactSpaSubpath\\test_vite\\wwwroot\\",
+      "BasePath": "_content/test_vite",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}

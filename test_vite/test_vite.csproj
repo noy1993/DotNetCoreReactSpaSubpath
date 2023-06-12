@@ -24,8 +24,8 @@
 	
 	<!-- 设置哪些 spa 项目会被发布 -->
 	<ItemGroup>
-		<SpaItem Include="hello\" />
-		<SpaItem Include="myworld\" />
+		<SpaItem Include="home\" />
+		<SpaItem Include="admin\" />
 	</ItemGroup>
 
 	<!-- 发布前先编译目标 -->
